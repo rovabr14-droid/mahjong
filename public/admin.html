@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — PinoyGames Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:#0a1208;color:#f0ede4;min-height:100vh}
+:root{--gold:#d4a843;--green:#1a5c35;--red:#e74c3c;--card:rgba(255,255,255,.05);--border:rgba(255,255,255,.1)}
+
+/* Login screen */
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at center,rgba(26,92,53,.3) 0%,transparent 60%)}
+.login-card{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:20px;align-items:center}
+.login-logo{font-size:48px}
+.login-title{font-size:22px;font-weight:700;color:var(--gold)}
+.login-sub{font-size:13px;color:rgba(240,237,228,.5);text-align:center}
+.login-input{width:100%;background:rgba(255,255,255,.07);border:1.5px solid var(--border);border-radius:8px;padding:12px 16px;color:#f0ede4;font-family:inherit;font-size:15px;outline:none;transition:border-color .2s}
+.login-input:focus{border-color:var(--gold)}
+.login-btn{width:100%;background:linear-gradient(135deg,#d4a843,#f5c842);color:#0a1208;border:none;border-radius:8px;padding:13px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:filter .15s}
+.login-btn:hover{filter:brightness(1.1)}
+.login-error{color:var(--red);font-size:13px;min-height:18px}
+
+/* Admin panel */
+#adminPanel{display:none;min-height:100vh}
+.admin-header{background:rgba(0,0,0,.4);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;backdrop-filter:blur(8px)}
+.admin-logo{font-size:20px;font-weight:700;color:var(--gold)}
+.admin-nav{display:flex;gap:8px}
+.nav-btn{background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:8px;padding:7px 16px;color:#f0ede4;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.nav-btn:hover,.nav-btn.active{background:var(--gold);color:#0a1208;border-color:var(--gold)}
+.logout-btn{background:rgba(231,76,60,.2);border:1px solid rgba(231,76,60,.3);color:var(--red);border-radius:8px;padding:7px 16px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.logout-btn:hover{background:var(--red);color:#fff}
+
+.admin-body{padding:24px;max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+
+/* Tabs */
+.tab{display:none}.tab.active{display:block}
+
+/* Cards */
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.section-title{font-size:16px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:8px}
+.field-row{display:flex;flex-direction:column;gap:6px}
+.field-label{font-size:12px;font-weight:600;color:rgba(240,237,228,.6);letter-spacing:.05em;text-transform:uppercase}
+.field-input{background:rgba(255,255,255,.07);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;color:#f0ede4;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;width:100%}
+.field-input:focus{border-color:var(--gold)}
+textarea.field-input{resize:vertical;min-height:60px}
+
+/* Affiliate editor */
+.aff-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.aff-item{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.aff-item-header{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.aff-item input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:7px 10px;color:#f0ede4;font-family:inherit;font-size:12px;outline:none;width:100%;transition:border-color .2s}
+.aff-item input:focus{border-color:var(--gold)}
+.aff-item label{font-size:10px;color:rgba(240,237,228,.4);font-weight:600;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px}
+
+/* Save button */
+.save-btn{background:linear-gradient(135deg,#1a6b2e,#2d9e47);color:#fff;border:none;border-radius:8px;padding:12px 28px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:filter .15s;align-self:flex-start}
+.save-btn:hover{filter:brightness(1.15)}
+.save-success{color:#2ecc71;font-size:13px;font-weight:600;display:none}
+
+/* Preview banner */
+.preview-banner{background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.3);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--gold);display:none}
+.preview-banner.active{display:block}
+
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat-box{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.stat-val{font-size:32px;font-weight:800;color:var(--gold)}
+.stat-lbl{font-size:11px;color:rgba(240,237,228,.5);margin-top:4px}
+
+/* Password change */
+.pass-row{display:flex;gap:10px;align-items:flex-end}
+.pass-row .field-row{flex:1}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">🔐</div>
+    <div class="login-title">Admin Panel</div>
+    <div class="login-sub">PinoyGames Hub · Site Management</div>
+    <input class="login-input" type="password" id="loginPass" placeholder="Enter admin password" autocomplete="current-password">
+    <button class="login-btn" onclick="doLogin()">Login →</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <div class="admin-logo">🎮 Admin Panel</div>
+    <div class="admin-nav">
+      <button class="nav-btn active" onclick="showTab('site')">🌐 Site</button>
+      <button class="nav-btn" onclick="showTab('affiliates')">🛍 Affiliates</button>
+      <button class="nav-btn" onclick="showTab('settings')">⚙️ Settings</button>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- SITE TAB -->
+    <div class="tab active" id="tab-site">
+      <div class="section-card">
+        <div class="section-title">🌐 Site Info</div>
+        <div class="field-row">
+          <div class="field-label">Site Title</div>
+          <input class="field-input" id="siteTitle" type="text" placeholder="PinoyGames Hub">
+        </div>
+        <div class="field-row">
+          <div class="field-label">Subtitle</div>
+          <input class="field-input" id="siteSubtitle" type="text" placeholder="Play Filipino games with friends online">
+        </div>
+        <div class="field-row">
+          <div class="field-label">📢 Announcement Banner (leave blank to hide)</div>
+          <textarea class="field-input" id="siteAnnouncement" placeholder="e.g. New game coming soon! 🎉"></textarea>
+        </div>
+        <div class="preview-banner" id="previewBanner"></div>
+        <button class="save-btn" onclick="saveSite()">💾 Save Changes</button>
+        <div class="save-success" id="siteSaved">✓ Saved successfully!</div>
+      </div>
+    </div>
+
+    <!-- AFFILIATES TAB -->
+    <div class="tab" id="tab-affiliates">
+      <div class="section-card">
+        <div class="section-title">🛍 Left Sidebar (Shop)</div>
+        <div class="aff-grid" id="affLeft"></div>
+      </div>
+      <div class="section-card">
+        <div class="section-title">🔥 Right Sidebar (Featured)</div>
+        <div class="aff-grid" id="affRight"></div>
+      </div>
+      <button class="save-btn" onclick="saveAffiliates()">💾 Save Affiliates</button>
+      <div class="save-success" id="affSaved">✓ Affiliates saved!</div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div class="tab" id="tab-settings">
+      <div class="section-card">
+        <div class="section-title">🔑 Change Admin Password</div>
+        <div class="pass-row">
+          <div class="field-row">
+            <div class="field-label">New Password</div>
+            <input class="field-input" id="newPass" type="password" placeholder="Enter new password">
+          </div>
+          <div class="field-row">
+            <div class="field-label">Confirm</div>
+            <input class="field-input" id="confPass" type="password" placeholder="Confirm password">
+          </div>
+          <button class="save-btn" onclick="changePass()" style="margin-bottom:0">Update</button>
+        </div>
+        <div class="save-success" id="passSaved">✓ Password updated! (resets on server restart — set ADMIN_PASSWORD env var on Render to make permanent)</div>
+      </div>
+      <div class="section-card">
+        <div class="section-title">🔗 Quick Links</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="/" target="_blank" style="color:var(--gold);text-decoration:none;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.3);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600">🎮 Open Game Site →</a>
+          <a href="https://dashboard.render.com" target="_blank" style="color:#f0ede4;text-decoration:none;background:rgba(255,255,255,.07);border:1px solid var(--border);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600">☁️ Render Dashboard →</a>
+          <a href="https://github.com/rovabr14-droid/mahjong" target="_blank" style="color:#f0ede4;text-decoration:none;background:rgba(255,255,255,.07);border:1px solid var(--border);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600">📁 GitHub Repo →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let adminToken = localStorage.getItem('adminToken') || '';
+let config = {};
+
+async function doLogin() {
+  const pass = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginError');
+  err.textContent = '';
+  try {
+    const res = await fetch('/api/admin/login', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ password: pass })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      adminToken = data.token;
+      localStorage.setItem('adminToken', adminToken);
+      showPanel();
+    } else {
+      err.textContent = 'Wrong password!';
+    }
+  } catch(e) { err.textContent = 'Connection error.'; }
+}
+
+document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+async function showPanel() {
+  try {
+    const res = await fetch('/api/config');
+    config = await res.json();
+    populateFields();
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+  } catch(e) { alert('Could not load config'); }
+}
+
+function populateFields() {
+  document.getElementById('siteTitle').value = config.title || '';
+  document.getElementById('siteSubtitle').value = config.subtitle || '';
+  document.getElementById('siteAnnouncement').value = config.announcement || '';
+  updatePreview();
+  buildAffiliates();
+}
+
+function updatePreview() {
+  const ann = document.getElementById('siteAnnouncement').value.trim();
+  const banner = document.getElementById('previewBanner');
+  if (ann) { banner.textContent = '📢 ' + ann; banner.classList.add('active'); }
+  else banner.classList.remove('active');
+}
+document.getElementById('siteAnnouncement')?.addEventListener('input', updatePreview);
+
+function buildAffiliates() {
+  buildAffSide('affLeft', config.affiliates?.left || [], false);
+  buildAffSide('affRight', config.affiliates?.right || [], true);
+}
+
+function buildAffSide(containerId, items, isFeatured) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  items.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'aff-item';
+    div.innerHTML = `
+      <div class="aff-item-header">${isFeatured?'🔥':'🛍'} Item ${i+1}</div>
+      <div><label>Emoji/Icon (or leave blank if using image)</label><input data-side="${containerId}" data-idx="${i}" data-field="emoji" value="${esc(item.emoji||'')}"></div>
+      <div><label>Image URL (optional — paste a direct image link to replace emoji)</label><input data-side="${containerId}" data-idx="${i}" data-field="imageUrl" value="${esc(item.imageUrl||'')}" placeholder="https://...jpg"></div>
+      <div><label>Product Name</label><input data-side="${containerId}" data-idx="${i}" data-field="name" value="${esc(item.name||'')}"></div>
+      <div><label>Description</label><input data-side="${containerId}" data-idx="${i}" data-field="desc" value="${esc(item.desc||'')}"></div>
+      <div><label>Price (e.g. $29.99)</label><input data-side="${containerId}" data-idx="${i}" data-field="price" value="${esc(item.price||'')}"></div>
+      ${isFeatured ? `<div><label>Old Price (for SALE badge)</label><input data-side="${containerId}" data-idx="${i}" data-field="oldPrice" value="${esc(item.oldPrice||'')}"></div>` : ''}
+      <div><label>Affiliate Link (URL)</label><input data-side="${containerId}" data-idx="${i}" data-field="link" value="${esc(item.link||'')}" placeholder="https://..."></div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function esc(str) { return String(str).replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function getAffData(containerId, defaultItems) {
+  const inputs = document.querySelectorAll(`[data-side="${containerId}"]`);
+  const items = JSON.parse(JSON.stringify(defaultItems));
+  inputs.forEach(input => {
+    const idx = parseInt(input.dataset.idx);
+    const field = input.dataset.field;
+    if (items[idx]) items[idx][field] = input.value;
+  });
+  return items;
+}
+
+async function saveSite() {
+  const body = {
+    title: document.getElementById('siteTitle').value,
+    subtitle: document.getElementById('siteSubtitle').value,
+    announcement: document.getElementById('siteAnnouncement').value,
+  };
+  await apiPost('/api/admin/config', body);
+  flash('siteSaved');
+}
+
+async function saveAffiliates() {
+  const left = getAffData('affLeft', config.affiliates?.left || []);
+  const right = getAffData('affRight', config.affiliates?.right || []);
+  await apiPost('/api/admin/config', { affiliates: { left, right } });
+  config.affiliates = { left, right };
+  flash('affSaved');
+}
+
+async function changePass() {
+  const np = document.getElementById('newPass').value;
+  const cp = document.getElementById('confPass').value;
+  if (!np) return alert('Enter a new password');
+  if (np !== cp) return alert('Passwords do not match');
+  await apiPost('/api/admin/config', { newPassword: np });
+  flash('passSaved');
+}
+
+async function apiPost(url, body) {
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-admin-token':adminToken},
+    body: JSON.stringify(body)
+  });
+  return res.json();
+}
+
+function flash(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function logout() {
+  localStorage.removeItem('adminToken');
+  adminToken = '';
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+// Auto-login if token exists
+if (adminToken) showPanel();
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🎮 PinoyGames Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<!-- ── LOBBY ─────────────────────────────────────────────────────────── -->
+<div id="screen-lobby" class="screen active">
+  <div class="lobby-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar left-sidebar">
+      <div class="sidebar-header">🛍 Shop</div>
+      <a href="YOUR_LINK" target="_blank" rel="sponsored noopener" class="aff-card">
+        <div class="aff-img"><span>🀄</span></div>
+        <div class="aff-body">
+          <div class="aff-name">Mahjong Set</div>
+          <div class="aff-desc">144-piece classic set</div>
+          <div class="aff-price">$29.99</div>
+          <div class="aff-cta">Shop Now →</div>
+        </div>
+      </a>
+      <a href="YOUR_LINK" target="_blank" rel="sponsored noopener" class="aff-card">
+        <div class="aff-img"><span>♟</span></div>
+        <div class="aff-body">
+          <div class="aff-name">Chess Set</div>
+          <div class="aff-desc">Wooden board & pieces</div>
+          <div class="aff-price">$49.99</div>
+          <div class="aff-cta">Shop Now →</div>
+        </div>
+      </a>
+      <a href="YOUR_LINK" target="_blank" rel="sponsored noopener" class="aff-card">
+        <div class="aff-img"><span>🎲</span></div>
+        <div class="aff-body">
+          <div class="aff-name">Dominoes Set</div>
+          <div class="aff-desc">Double-6 set, 28 tiles</div>
+          <div class="aff-price">$15.99</div>
+          <div class="aff-cta">Shop Now →</div>
+        </div>
+      </a>
+      <div class="sidebar-disclosure">Sponsored</div>
+    </aside>
+
+    <!-- CENTER -->
+    <div class="lobby-center">
+      <div class="lobby-hero">
+        <div class="hero-logo">🎮</div>
+        <h1 class="hero-title">PinoyGames Hub</h1>
+        <p class="hero-sub">Play Filipino games with friends online</p>
+      </div>
+
+      <div class="profile-setup">
+        <div class="avatar-picker" id="avatarPicker">
+          <button class="avatar-btn active" data-avatar="😊">😊</button>
+          <button class="avatar-btn" data-avatar="😎">😎</button>
+          <button class="avatar-btn" data-avatar="🤩">🤩</button>
+          <button class="avatar-btn" data-avatar="😄">😄</button>
+          <button class="avatar-btn" data-avatar="🧑">🧑</button>
+          <button class="avatar-btn" data-avatar="👩">👩</button>
+          <button class="avatar-btn" data-avatar="🧒">🧒</button>
+          <button class="avatar-btn" data-avatar="👴">👴</button>
+        </div>
+        <input id="playerName" type="text" placeholder="Enter your name" maxlength="16" autocomplete="off" class="name-input">
+      </div>
+
+      <div class="games-section">
+        <div class="game-grid">
+          <div class="game-card" data-game="mahjong">
+            <div class="game-card-bg" style="background:linear-gradient(135deg,#1a6b2e,#2d9e47)"></div>
+            <div class="game-card-icon">🀄</div>
+            <div class="game-card-name">Filipino Mahjong</div>
+            <div class="game-card-info">144 tiles · 2–4 players</div>
+            <div class="game-card-badge">Popular</div>
+          </div>
+          <div class="game-card" data-game="tongits">
+            <div class="game-card-bg" style="background:linear-gradient(135deg,#8b1a1a,#c0392b)"></div>
+            <div class="game-card-icon">🃏</div>
+            <div class="game-card-name">Tongits</div>
+            <div class="game-card-info">Card game · 3 players</div>
+            <div class="game-card-badge new">New!</div>
+          </div>
+          <div class="game-card" data-game="pusoy">
+            <div class="game-card-bg" style="background:linear-gradient(135deg,#1a3a8c,#2c5aa0)"></div>
+            <div class="game-card-icon">🂡</div>
+            <div class="game-card-name">Pusoy Dos</div>
+            <div class="game-card-info">Big Two · 4 players</div>
+            <div class="game-card-badge new">New!</div>
+          </div>
+          <div class="game-card" data-game="dominoes">
+            <div class="game-card-bg" style="background:linear-gradient(135deg,#4a3000,#8b6914)"></div>
+            <div class="game-card-icon">🁣</div>
+            <div class="game-card-name">Dominoes</div>
+            <div class="game-card-info">28 tiles · 2–4 players</div>
+            <div class="game-card-badge new">New!</div>
+          </div>
+        </div>
+
+        <div class="game-grid two-col">
+          <div class="game-card" data-game="chess">
+            <div class="game-card-bg" style="background:linear-gradient(135deg,#2a2a2a,#4a4a4a)"></div>
+            <div class="game-card-icon">♟</div>
+            <div class="game-card-name">Chess</div>
+            <div class="game-card-info">Classic strategy · 2 players</div>
+          </div>
+          <div class="game-card" data-game="checkers">
+            <div class="game-card-bg" style="background:linear-gradient(135deg,#5a1a00,#8b2500)"></div>
+            <div class="game-card-icon">🔴</div>
+            <div class="game-card-name">Checkers</div>
+            <div class="game-card-info">Draughts · 2 players</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="join-section">
+        <div class="join-divider">— or join with a room code —</div>
+        <div class="join-row">
+          <input id="roomCodeInput" type="text" placeholder="XXXXXX" maxlength="6" class="code-input" autocomplete="off">
+          <button class="btn btn-join" id="btnJoin">Join Room</button>
+        </div>
+      </div>
+
+      <div class="qr-wrap">
+        <div class="qr-label">📱 Scan to play on phone</div>
+        <div id="lobbyQR" class="qr-box"></div>
+      </div>
+
+      <div id="errorMsg" class="error-msg"></div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar right-sidebar">
+      <div class="sidebar-header">🔥 Featured</div>
+      <a href="YOUR_LINK" target="_blank" rel="sponsored noopener" class="aff-card featured">
+        <div class="aff-sale-badge">SALE</div>
+        <div class="aff-img"><span>🃏</span></div>
+        <div class="aff-body">
+          <div class="aff-name">Card Game Bundle</div>
+          <div class="aff-desc">Tongits, Pusoy & more</div>
+          <div class="aff-price">$24.99 <s>$39.99</s></div>
+          <div class="aff-cta">Get Deal →</div>
+        </div>
+      </a>
+      <a href="YOUR_LINK" target="_blank" rel="sponsored noopener" class="aff-card">
+        <div class="aff-img"><span>⏱</span></div>
+        <div class="aff-body">
+          <div class="aff-name">Chess Clock</div>
+          <div class="aff-desc">Digital tournament timer</div>
+          <div class="aff-price">$22.99</div>
+          <div class="aff-cta">Shop Now →</div>
+        </div>
+      </a>
+      <a href="YOUR_LINK" target="_blank" rel="sponsored noopener" class="aff-card">
+        <div class="aff-img"><span>📚</span></div>
+        <div class="aff-body">
+          <div class="aff-name">Strategy Guide</div>
+          <div class="aff-desc">Master Filipino card games</div>
+          <div class="aff-price">$12.99</div>
+          <div class="aff-cta">Shop Now →</div>
+        </div>
+      </a>
+      <a href="YOUR_LINK" target="_blank" rel="sponsored noopener" class="aff-card">
+        <div class="aff-img"><span>🎯</span></div>
+        <div class="aff-body">
+          <div class="aff-name">Game Night Pack</div>
+          <div class="aff-desc">Everything you need</div>
+          <div class="aff-price">$34.99</div>
+          <div class="aff-cta">Shop Now →</div>
+        </div>
+      </a>
+      <div class="sidebar-disclosure">Sponsored links</div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- ── WAITING ROOM ───────────────────────────────────────────────────── -->
+<div id="screen-waiting" class="screen">
+  <div class="waiting-layout">
+    <div class="waiting-card">
+      <div class="waiting-game-badge" id="waitingGameBadge"></div>
+      <h2 class="waiting-title">Waiting Room</h2>
+      <div class="room-code-section">
+        <div class="room-code-label">Room Code</div>
+        <div class="room-code-display" id="displayRoomCode">------</div>
+        <button class="copy-code-btn" id="btnCopyCode">📋 Copy</button>
+      </div>
+      <div class="waiting-qr">
+        <div id="waitingQR" class="qr-box-sm"></div>
+        <div class="qr-hint">Scan to join</div>
+      </div>
+      <div id="playerSlots" class="player-slots"></div>
+      <div class="waiting-actions">
+        <button class="btn btn-home" id="btnBackHome">🏠 Home</button>
+        <button class="btn btn-ready" id="btnReady">✓ I'm Ready</button>
+        <button class="btn btn-start hidden" id="btnStart">▶ Start Game</button>
+      </div>
+      <p class="waiting-note" id="waitingNote"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAHJONG ────────────────────────────────────────────────────────── -->
+<div id="screen-mahjong" class="screen">
+  <div class="game-table mj-table">
+    <div class="seat seat-top" id="seat-top"><div class="seat-info" id="mj-info-top"></div><div class="opp-hand" id="mj-hand-top"></div><div class="melds-row" id="mj-melds-top"></div><div class="discard-area" id="mj-disc-top"></div></div>
+    <div class="seat seat-left" id="seat-left"><div class="seat-info vertical" id="mj-info-left"></div><div class="opp-hand vertical" id="mj-hand-left"></div><div class="melds-row vertical" id="mj-melds-left"></div><div class="discard-area vertical" id="mj-disc-left"></div></div>
+    <div class="center-zone"><div class="center-wind" id="mjWind">東</div><div class="center-count" id="mjCount">144</div><div class="center-label">tiles</div><div class="event-log" id="mjLog"></div></div>
+    <div class="seat seat-right" id="seat-right"><div class="discard-area vertical" id="mj-disc-right"></div><div class="melds-row vertical" id="mj-melds-right"></div><div class="opp-hand vertical" id="mj-hand-right"></div><div class="seat-info vertical" id="mj-info-right"></div></div>
+    <div class="seat seat-bottom" id="seat-bottom"><div class="discard-area" id="mj-disc-bottom"></div><div class="melds-row" id="mj-melds-bottom"></div><div class="my-hand" id="mj-hand-bottom"></div><div class="action-bar"><div class="my-seat-info" id="mj-info-bottom"></div><div class="action-btns" id="mj-actions"></div><button class="home-btn" onclick="goHome()">🏠</button></div></div>
+    <div class="chat-panel" id="chatPanel-mahjong"><div class="chat-msgs" id="chatMsgs-mahjong"></div><div class="chat-input-row"><input class="chat-input" id="chatInput-mahjong" placeholder="Chat..." maxlength="100"><button class="chat-send" onclick="sendChat('mahjong')">➤</button></div></div>
+  </div>
+</div>
+
+<!-- ── CHESS ──────────────────────────────────────────────────────────── -->
+<div id="screen-chess" class="screen">
+  <div class="chess-layout">
+    <div class="chess-sidebar"><div class="player-panel" id="chess-black-panel"></div><div class="captured-row" id="chess-cap-white"></div><div class="event-log" id="chessLog"></div><button class="home-btn" onclick="goHome()">🏠 Home</button></div>
+    <div class="board-wrap"><div class="chess-board" id="chessBoard"></div><div class="board-coords">a b c d e f g h</div></div>
+    <div class="chess-sidebar"><div class="player-panel" id="chess-white-panel"></div><div class="captured-row" id="chess-cap-black"></div><div class="chat-panel inline"><div class="chat-msgs" id="chatMsgs-chess"></div><div class="chat-input-row"><input class="chat-input" id="chatInput-chess" placeholder="Chat..." maxlength="100"><button class="chat-send" onclick="sendChat('chess')">➤</button></div></div></div>
+  </div>
+</div>
+
+<!-- ── CHECKERS ───────────────────────────────────────────────────────── -->
+<div id="screen-checkers" class="screen">
+  <div class="chess-layout">
+    <div class="chess-sidebar"><div class="player-panel" id="chk-black-panel"></div><div class="event-log" id="checkersLog"></div><button class="home-btn" onclick="goHome()">🏠 Home</button></div>
+    <div class="board-wrap"><div class="checkers-board" id="checkersBoard"></div></div>
+    <div class="chess-sidebar"><div class="player-panel" id="chk-red-panel"></div><div class="chat-panel inline"><div class="chat-msgs" id="chatMsgs-checkers"></div><div class="chat-input-row"><input class="chat-input" id="chatInput-checkers" placeholder="Chat..." maxlength="100"><button class="chat-send" onclick="sendChat('checkers')">➤</button></div></div></div>
+  </div>
+</div>
+
+<!-- ── DOMINOES ───────────────────────────────────────────────────────── -->
+<div id="screen-dominoes" class="screen">
+  <div class="dom-layout">
+    <!-- Top bar -->
+    <div class="dom-topbar">
+      <button class="dom-icon-btn" onclick="goHome()" title="Home">🏠</button>
+      <div class="dom-opponents" id="domOpponents"></div>
+      <div class="dom-status">
+        <span id="domBoneyard">🁣 28</span>
+        <span id="domTurn" class="dom-turn-badge"></span>
+      </div>
+    </div>
+    <!-- Board -->
+    <div class="dom-board-area">
+      <div class="dom-board" id="domBoard"></div>
+    </div>
+    <!-- My hand tray -->
+    <div class="dom-hand-tray">
+      <div class="dom-hand-inner" id="domHand"></div>
+      <div class="dom-hand-score" id="domMyScore">0 PTS</div>
+    </div>
+    <!-- Action buttons -->
+    <div class="dom-action-bar" id="domActions"></div>
+    <!-- Chat toggle -->
+    <div class="dom-chat-panel">
+      <div class="chat-msgs" id="chatMsgs-dominoes"></div>
+      <div class="chat-input-row"><input class="chat-input" id="chatInput-dominoes" placeholder="Chat..." maxlength="100"><button class="chat-send" onclick="sendChat('dominoes')">➤</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TONGITS ────────────────────────────────────────────────────────── -->
+<div id="screen-tongits" class="screen">
+  <div class="card-game-layout">
+    <div class="card-game-sidebar">
+      <div id="tong-players"></div>
+      <div class="event-log" id="tongLog"></div>
+      <button class="home-btn" onclick="goHome()">🏠 Home</button>
+      <div class="chat-panel inline"><div class="chat-msgs" id="chatMsgs-tongits"></div><div class="chat-input-row"><input class="chat-input" id="chatInput-tongits" placeholder="Chat..." maxlength="100"><button class="chat-send" onclick="sendChat('tongits')">➤</button></div></div>
+    </div>
+    <div class="card-game-main">
+      <div class="tong-center">
+        <div class="tong-stock" id="tongStock">🂠 <span id="tongStockCount">0</span></div>
+        <div class="tong-discard" id="tongDiscard"></div>
+      </div>
+      <div class="tong-melds" id="tongMelds"></div>
+      <div class="my-card-hand" id="tongHand"></div>
+      <div class="action-btns" id="tongActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PUSOY DOS ──────────────────────────────────────────────────────── -->
+<div id="screen-pusoy" class="screen">
+  <div class="card-game-layout">
+    <div class="card-game-sidebar">
+      <div id="pusoy-players"></div>
+      <div class="last-play-panel"><div class="last-play-label">Last Play</div><div id="pusoyLastPlay" class="last-play-cards"></div></div>
+      <div class="event-log" id="pusoyLog"></div>
+      <button class="home-btn" onclick="goHome()">🏠 Home</button>
+      <div class="chat-panel inline"><div class="chat-msgs" id="chatMsgs-pusoy"></div><div class="chat-input-row"><input class="chat-input" id="chatInput-pusoy" placeholder="Chat..." maxlength="100"><button class="chat-send" onclick="sendChat('pusoy')">➤</button></div></div>
+    </div>
+    <div class="card-game-main">
+      <div class="my-card-hand selectable" id="pusoyHand"></div>
+      <div class="action-btns" id="pusoyActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WIN OVERLAY ────────────────────────────────────────────────────── -->
+<div id="overlay" class="overlay hidden">
+  <div class="overlay-card">
+    <div class="overlay-confetti" id="confetti"></div>
+    <div class="overlay-icon" id="overlayIcon">🏆</div>
+    <div class="overlay-title" id="overlayTitle">Winner!</div>
+    <div class="overlay-msg" id="overlayMsg"></div>
+    <div class="overlay-actions">
+      <button class="btn btn-play-again hidden" id="btnNext">▶ Play Again</button>
+      <button class="btn btn-home" id="btnHome">🏠 Home</button>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
